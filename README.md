@@ -22,6 +22,7 @@ Software de proposito final para estudo.
     OpenCv 2.4.9
     Hibernate
     Oracle database
+    Netbeans
 
 <div id="Configuracao"/>
 

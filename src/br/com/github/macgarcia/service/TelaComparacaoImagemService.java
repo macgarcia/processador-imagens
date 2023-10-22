@@ -9,7 +9,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 /**
@@ -68,10 +68,10 @@ public class TelaComparacaoImagemService extends RegraSelecaoImagem {
     }
 
     private void executarComparacaoPorHistograma() {
-        Mat mat01 = Highgui.imread(caminhoFoto01);
+        Mat mat01 = Imgcodecs.imread(caminhoFoto01);
         Imgproc.cvtColor(mat01, mat01, Imgproc.COLOR_RGB2GRAY);
 
-        Mat mat02 = Highgui.imread(caminhoFoto02);
+        Mat mat02 = Imgcodecs.imread(caminhoFoto02);
         Imgproc.cvtColor(mat02, mat02, Imgproc.COLOR_RGB2GRAY);
         
         GeradorHistograma geradorHistograma = new GeradorHistograma();

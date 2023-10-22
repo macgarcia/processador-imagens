@@ -1,4 +1,4 @@
-package br.com.github.macgarcia.main;
+package br.com.github.macgarcia.view;
 
 import br.com.github.macgarcia.service.TelaInicialService;
 
@@ -36,6 +36,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenuItemCapturarImagem = new javax.swing.JMenuItem();
         jMenuProcessamentoImagem = new javax.swing.JMenu();
         jMenuItemComparacaoImagem = new javax.swing.JMenuItem();
+        jMenuItemEdicaoImagem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +57,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuItemComparacaoImagem.setText("Comparação por histograma");
         jMenuProcessamentoImagem.add(jMenuItemComparacaoImagem);
+
+        jMenuItemEdicaoImagem.setText("Edição de imagem");
+        jMenuProcessamentoImagem.add(jMenuItemEdicaoImagem);
 
         jMenuBar.add(jMenuProcessamentoImagem);
 
@@ -117,6 +121,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadastroImagem;
     private javax.swing.JMenuItem jMenuItemCapturarImagem;
     private javax.swing.JMenuItem jMenuItemComparacaoImagem;
+    private javax.swing.JMenuItem jMenuItemEdicaoImagem;
     private javax.swing.JMenuItem jMenuItemListarImagens;
     private javax.swing.JMenu jMenuProcessamentoImagem;
     // End of variables declaration//GEN-END:variables

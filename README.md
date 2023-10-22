@@ -47,7 +47,7 @@ Software de proposito final para estudo.
     |Listar imagens| Funcionalidade de listagem de imagens cadastradas|
     |Capturar imagem|Funcionalidade de captura de imagem através de uma camera conectada|
 
- - Menu processamentode imagem
+ - Menu processamento de imagem
    |Nome|Descrição|
    |-|-|
    |Comparação por histograma|Funcionalidade de comparação de imagens|

@@ -36,6 +36,11 @@
                 <Property name="text" type="java.lang.String" value="Compara&#xe7;&#xe3;o por histograma"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEdicaoImagem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Edi&#xe7;&#xe3;o de imagem"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>

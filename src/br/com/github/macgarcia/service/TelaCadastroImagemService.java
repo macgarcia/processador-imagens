@@ -2,7 +2,6 @@ package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import br.com.github.macgarcia.modelo.Imagem;
-import br.com.github.macgarcia.qrcode.ProcessarQrCode;
 import br.com.github.macgarcia.repository.ImagemRepository;
 import br.com.github.macgarcia.util.FactoryMensagem;
 import br.com.github.macgarcia.util.GeradorHistograma;
@@ -15,9 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 /**
@@ -32,7 +30,6 @@ public class TelaCadastroImagemService extends RegraSelecaoImagem {
         frame.setTitle("Cadastro de imagem");
         frame.setResizable(false);
         dao = new ImagemRepository();
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
     public void limparCampos(final List<JTextField> camposTextos) {
@@ -66,7 +63,7 @@ public class TelaCadastroImagemService extends RegraSelecaoImagem {
             try {
                 final byte[] imagemEmBytes = Files.readAllBytes(file.toPath());
 
-                Mat mat = Highgui.imread(caminho);
+                Mat mat = Imgcodecs.imread(caminho);
                 Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY);
                 Long histogramaSomado = gh.criarHistograma(mat);             
 

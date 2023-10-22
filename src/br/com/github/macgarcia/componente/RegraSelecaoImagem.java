@@ -33,8 +33,8 @@ public abstract class RegraSelecaoImagem {
         Image image = icon.getImage();
 
         Image readyImage = image.getScaledInstance(label.getWidth(),
-                 label.getHeight(),
-                 Image.SCALE_SMOOTH);
+                label.getHeight(),
+                Image.SCALE_SMOOTH);
 
         ImageIcon readyIcon = new ImageIcon(readyImage);
         label.setIcon(readyIcon);

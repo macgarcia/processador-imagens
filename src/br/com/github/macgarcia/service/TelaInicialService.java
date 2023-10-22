@@ -3,14 +3,17 @@ package br.com.github.macgarcia.service;
 import br.com.github.macgarcia.util.Configuracao;
 import br.com.github.macgarcia.util.FactoryMensagem;
 import br.com.github.macgarcia.util.IndicacaoEnun;
+import br.com.github.macgarcia.view.FactoryTela;
 import br.com.github.macgarcia.view.TelaCadastroImagem;
 import br.com.github.macgarcia.view.TelaCapturarImagem;
 import br.com.github.macgarcia.view.TelaComparacaoImagem;
+import br.com.github.macgarcia.view.TelaEdicaoImagem;
 import br.com.github.macgarcia.view.TelaListarImagem;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import org.opencv.core.Core;
 
 /**
  *
@@ -22,6 +25,7 @@ public class TelaInicialService {
         telaInicial.setTitle("Processador de imagens");
         telaInicial.setResizable(false);
         telaInicial.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     }
 
     public void configurarAcoesDosBotoesDaBarraDeMenu(final JMenuBar barraMenu,
@@ -55,6 +59,11 @@ public class TelaInicialService {
         menu.getItem(0).addActionListener(ae -> {
             abrirTelaComparacaoPorHistograma(desktop);
         });
+        
+        //Processamento de imagem -> Edição de imagem
+        menu.getItem(1).addActionListener(ae -> {
+            abrirTelaDeEdicaoDeImagem(desktop);
+        });
     }
 
     private void abrirTelaCadastroImagem(final JDesktopPane desktop) {
@@ -63,10 +72,7 @@ public class TelaInicialService {
             FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
             return;
         }
-        TelaCadastroImagem tela = new TelaCadastroImagem();
-        desktop.add(tela);
-        Configuracao.setPosicaoInternalFrame(desktop, tela);
-        tela.setVisible(true);
+        FactoryTela.criarTela(TelaCadastroImagem.class, desktop);
     }
 
     private void abrirTelaListarImagem(final JDesktopPane desktop) {
@@ -104,6 +110,15 @@ public class TelaInicialService {
         desktop.add(tela);
         Configuracao.setPosicaoInternalFrame(desktop, tela);
         tela.setVisible(true);
+    }
+    
+    private void abrirTelaDeEdicaoDeImagem(final JDesktopPane desktop) {
+        boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaEdicaoImagem.class);
+        if (aberta) {
+            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            return;
+        }
+        FactoryTela.criarTela(TelaEdicaoImagem.class, desktop);
     }
 
 }

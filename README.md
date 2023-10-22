@@ -7,6 +7,7 @@ Software de processamento e armazenamento de imagens
 1. [Tecnologias](#Tecnologias)
 1. [Configuracao](#Configuracao)
 1. [Funcionalidades](#Funcionalidades)
+1. [Aplicação](#aplicacao)
 
 ***
 
@@ -19,7 +20,7 @@ Software de proposito final para estudo.
 
 ## Tecnologias
     Java 8
-    OpenCv 2.4.9
+    OpenCv 3.0.0
     Hibernate
     Oracle database
     Netbeans
@@ -51,4 +52,9 @@ Software de proposito final para estudo.
    |Nome|Descrição|
    |-|-|
    |Comparação por histograma|Funcionalidade de comparação de imagens|
+   |Edição de imagens|Disponibilidade de aplicação de filtros na imagem
 
+<div id="aplicacao">
+
+## Aplicação
+![](https://ik.imagekit.io/macgarcia/processador-imagem/telas-aplicacao.png?updatedAt=1697952360916)

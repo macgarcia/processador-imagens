@@ -59,7 +59,7 @@ public class TelaInicialService {
         menu.getItem(0).addActionListener(ae -> {
             abrirTelaComparacaoPorHistograma(desktop);
         });
-        
+
         //Processamento de imagem -> Edição de imagem
         menu.getItem(1).addActionListener(ae -> {
             abrirTelaDeEdicaoDeImagem(desktop);
@@ -81,10 +81,7 @@ public class TelaInicialService {
             FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
             return;
         }
-        TelaListarImagem tela = new TelaListarImagem();
-        desktop.add(tela);
-        Configuracao.setPosicaoInternalFrame(desktop, tela);
-        tela.setVisible(true);
+        FactoryTela.criarTela(TelaListarImagem.class, desktop);
     }
 
     private void abrirTelaCapturaImagem(final JDesktopPane desktop) {
@@ -93,10 +90,7 @@ public class TelaInicialService {
             FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
             return;
         }
-        TelaCapturarImagem tela = new TelaCapturarImagem();
-        desktop.add(tela);
-        Configuracao.setPosicaoInternalFrame(desktop, tela);
-        tela.setVisible(true);
+        FactoryTela.criarTela(TelaCapturarImagem.class, desktop);
 
     }
 
@@ -106,12 +100,9 @@ public class TelaInicialService {
             FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
             return;
         }
-        TelaComparacaoImagem tela = new TelaComparacaoImagem();
-        desktop.add(tela);
-        Configuracao.setPosicaoInternalFrame(desktop, tela);
-        tela.setVisible(true);
+        FactoryTela.criarTela(TelaComparacaoImagem.class, desktop);
     }
-    
+
     private void abrirTelaDeEdicaoDeImagem(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaEdicaoImagem.class);
         if (aberta) {

@@ -3,9 +3,8 @@ package br.com.github.macgarcia.service;
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import br.com.github.macgarcia.modelo.Imagem;
 import br.com.github.macgarcia.repository.ImagemRepository;
-import br.com.github.macgarcia.util.FactoryMensagem;
-import br.com.github.macgarcia.util.GeradorHistograma;
-import br.com.github.macgarcia.util.IndicacaoEnun;
+import br.com.github.macgarcia.processos.GeradorHistograma;
+import com.gituhub.macgarcia.core.FactoryMensagem;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +22,9 @@ import org.opencv.imgproc.Imgproc;
  * @author macgarcia
  */
 public class TelaCadastroImagemService extends RegraSelecaoImagem {
+
+    private final String REGISTRO_SALVO = "Registro salvo com sucesso.";
+    private final String REGISTRO_NAO_SALVO = "Erro ao tentar gravar o registro.";
 
     private final ImagemRepository dao;
 
@@ -65,16 +67,16 @@ public class TelaCadastroImagemService extends RegraSelecaoImagem {
 
                 Mat mat = Imgcodecs.imread(caminho);
                 Imgproc.cvtColor(mat, mat, Imgproc.COLOR_RGB2GRAY);
-                Long histogramaSomado = gh.criarHistograma(mat);             
+                Long histogramaSomado = gh.criarHistograma(mat);
 
                 Imagem novaImagem = new Imagem(nome, histogramaSomado, imagemEmBytes);
 
                 final boolean salvou = salvarImagem(novaImagem);
                 if (salvou) {
-                    FactoryMensagem.mensagemOk(IndicacaoEnun.REGISTRO_SALVO);
+                    FactoryMensagem.mensagemOk(REGISTRO_SALVO);
                     limparTela(camposTextos, lblImagemSelecionada);
                 } else {
-                    FactoryMensagem.mensagemOk(IndicacaoEnun.REGISTRO_NAO_SALVO);
+                    FactoryMensagem.mensagemOk(REGISTRO_NAO_SALVO);
                 }
             } catch (IOException ex) {
                 ex.getMessage();

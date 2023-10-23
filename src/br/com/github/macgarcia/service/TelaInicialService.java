@@ -1,14 +1,13 @@
 package br.com.github.macgarcia.service;
 
-import br.com.github.macgarcia.util.Configuracao;
-import br.com.github.macgarcia.util.FactoryMensagem;
-import br.com.github.macgarcia.util.IndicacaoEnun;
-import br.com.github.macgarcia.view.FactoryTela;
 import br.com.github.macgarcia.view.TelaCadastroImagem;
 import br.com.github.macgarcia.view.TelaCapturarImagem;
 import br.com.github.macgarcia.view.TelaComparacaoImagem;
 import br.com.github.macgarcia.view.TelaEdicaoImagem;
 import br.com.github.macgarcia.view.TelaListarImagem;
+import com.gituhub.macgarcia.core.Configuracao;
+import com.gituhub.macgarcia.core.FactoryMensagem;
+import com.gituhub.macgarcia.core.FactoryTela;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -20,6 +19,8 @@ import org.opencv.core.Core;
  * @author macgarcia
  */
 public class TelaInicialService {
+
+    private final String JANELA_ABERTA = "Janela já esta aberta na area de trabalho.";
 
     public TelaInicialService(final JFrame telaInicial) {
         telaInicial.setTitle("Processador de imagens");
@@ -69,7 +70,7 @@ public class TelaInicialService {
     private void abrirTelaCadastroImagem(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaCadastroImagem.class);
         if (aberta) {
-            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            FactoryMensagem.mensagemAlerta(JANELA_ABERTA);
             return;
         }
         FactoryTela.criarTela(TelaCadastroImagem.class, desktop);
@@ -78,7 +79,7 @@ public class TelaInicialService {
     private void abrirTelaListarImagem(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaListarImagem.class);
         if (aberta) {
-            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            FactoryMensagem.mensagemAlerta(JANELA_ABERTA);
             return;
         }
         FactoryTela.criarTela(TelaListarImagem.class, desktop);
@@ -87,7 +88,7 @@ public class TelaInicialService {
     private void abrirTelaCapturaImagem(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaCapturarImagem.class);
         if (aberta) {
-            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            FactoryMensagem.mensagemAlerta(JANELA_ABERTA);
             return;
         }
         FactoryTela.criarTela(TelaCapturarImagem.class, desktop);
@@ -97,7 +98,7 @@ public class TelaInicialService {
     private void abrirTelaComparacaoPorHistograma(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaComparacaoImagem.class);
         if (aberta) {
-            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            FactoryMensagem.mensagemAlerta(JANELA_ABERTA);
             return;
         }
         FactoryTela.criarTela(TelaComparacaoImagem.class, desktop);
@@ -106,7 +107,7 @@ public class TelaInicialService {
     private void abrirTelaDeEdicaoDeImagem(final JDesktopPane desktop) {
         boolean aberta = Configuracao.verificarJanelaAberta(desktop, TelaEdicaoImagem.class);
         if (aberta) {
-            FactoryMensagem.mensagemAlerta(IndicacaoEnun.JANELA_ABERTA);
+            FactoryMensagem.mensagemAlerta(JANELA_ABERTA);
             return;
         }
         FactoryTela.criarTela(TelaEdicaoImagem.class, desktop);

@@ -1,6 +1,5 @@
 package br.com.github.macgarcia.repository;
 
-import br.com.github.macgarcia.util.FactoryMensagem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,7 +18,6 @@ public class GenericDao<T extends EntityBase> {
             final EntityManagerFactory emf = Persistence.createEntityManagerFactory(UNIDADE_PERSISTENCIA);
             return emf.createEntityManager();
         } catch (Exception e) {
-            FactoryMensagem.mensagemAlerta("Banco de dados fora do ar...");
             throw new InternalError(e.getMessage());
         }
     }

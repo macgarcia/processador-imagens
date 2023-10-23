@@ -1,6 +1,7 @@
 package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
+import br.com.github.macgarcia.processos.FiltroOpenCv;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +37,8 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
     
     private String caminhoImnagemSelecionada;
     private Mat matrizImagemSelecionada;
+    
+    private FiltroOpenCv filtro;
 
     public TelaEdicaoImagemService(final JInternalFrame frame) {
         frame.setTitle("Edição de imagem");
@@ -55,7 +58,6 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
                 }
             }
         });
-        
     }
     
     public void acaoDosBotoes(final List<JButton> botoes, final JLabel lblImagem) {
@@ -67,11 +69,14 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
         //Procurar
         botoes.get(indice++).addActionListener(ae -> {
             caminhoImnagemSelecionada = abrirCaixaDeSelexao();
-            if (Objects.nonNull(caminhoImnagemSelecionada)) {
+            if (Objects.nonNull(caminhoImnagemSelecionada) && !caminhoImnagemSelecionada.isEmpty()) {
                 criarDiretorioImg();
                 construirMatrizDaImagemSelecionada();
                 mostrarImagemNoObjeto(caminhoImnagemSelecionada, lblImagem);
                 ativarBotoes(botoes);
+            } else {
+                cancelarBotoes(botoes);
+                lblImagem.setIcon(null);
             }
         });
         
@@ -83,50 +88,44 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
         
         // Tons de cinza
         botoes.get(indice++).addActionListener(ae -> {
-            tonsDeCinza();
+            filtro.tonsDeCinza();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_TONS_DE_CINZA, lblImagem);
         });
         
         // Passa alta
         botoes.get(indice++).addActionListener(ae -> {
-            passaAlta();
+            filtro.passaAlta();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_PASSA_ALTA, lblImagem);
         });
         
         // Blur
         botoes.get(indice++).addActionListener(ae -> {
-            blur();
+            filtro.blur();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_BLUR, lblImagem);
         });
         
         // Suavizar
         botoes.get(indice++).addActionListener(ae -> {
-            suavizar();
+            filtro.suavizar();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SUAVIZADA, lblImagem);
         });
         
         // Erosao
         botoes.get(indice++).addActionListener(ae -> {
-            erosao();
+            filtro.erosao();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_EROSAO, lblImagem);
         });
         
         // Saturada
         botoes.get(indice++).addActionListener(ae -> {
-            saturar();
+            filtro.saturar();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SATURADA, lblImagem);
         });
         
         // Sobel
         botoes.get(indice++).addActionListener(ae -> {
-            sobel();
+            filtro.sobel();
             mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SOBEL, lblImagem);
-        });
-        
-        // Espelhar
-        botoes.get(indice++).addActionListener(ae -> {
-            espelhamento();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_ESPELHADA, lblImagem);
         });
     }
     
@@ -148,6 +147,7 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
     
     private void construirMatrizDaImagemSelecionada() {
         matrizImagemSelecionada = Imgcodecs.imread(caminhoImnagemSelecionada);
+        filtro = new FiltroOpenCv(matrizImagemSelecionada);
     }
     
     private void criarDiretorioImg() {
@@ -156,80 +156,4 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
             file.mkdirs();
         }
     }
-    
-    private void tonsDeCinza() {
-        Mat matrizImagenTonsDeCinza = new Mat();
-        Imgproc.cvtColor(matrizImagemSelecionada, matrizImagenTonsDeCinza, Imgproc.COLOR_RGB2GRAY);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_TONS_DE_CINZA, matrizImagenTonsDeCinza);
-    }
-    
-    private void passaAlta() {
-        Mat matrizImagemPassaAlta = new Mat();
-        Imgproc.Laplacian(matrizImagemSelecionada, matrizImagemPassaAlta, CvType.CV_16S);
-        Core.convertScaleAbs(matrizImagemPassaAlta, matrizImagemPassaAlta);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_PASSA_ALTA, matrizImagemPassaAlta);
-    }
-    
-    private void blur() {
-        Mat matrizImagemBlur = new Mat();
-        Size kernelSize = new Size(15, 15);
-        Imgproc.GaussianBlur(matrizImagemSelecionada, matrizImagemBlur, kernelSize, 0);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_BLUR, matrizImagemBlur);
-    }
-    
-    private void suavizar() {
-        Mat suavizacao = new Mat();
-        Imgproc.bilateralFilter(matrizImagemSelecionada, suavizacao, 9, 75, 75);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_SUAVIZADA, suavizacao);
-    }
-    
-    private void erosao() {
-      Mat erosao =  new Mat();
-      Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5,5));
-      Imgproc.erode(matrizImagemSelecionada, erosao, kernel);
-      Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_EROSAO, erosao);
-    }
-    
-    private void saturar() {
-        Mat hsv = new Mat();
-        Imgproc.cvtColor(matrizImagemSelecionada, hsv, Imgproc.COLOR_BGR2HSV);
-        
-        for (int r = 0; r < hsv.rows(); r++) {
-            for (int c = 0; c < hsv.cols(); c++) {
-                double[] pixel = hsv.get(r, c);
-                pixel[1] = 50;
-                hsv.put(r, c, pixel);
-            }
-        }
-        
-        Mat saturada = new Mat();
-        Imgproc.cvtColor(hsv, saturada, Imgproc.COLOR_BGR2HSV);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_SATURADA, saturada);
-    }
-    
-    private void sobel() {
-        //Mat imagem = Imgcodecs.imread(caminhoImnagemSelecionada, Imgcodecs.IMREAD_GRAYSCALE);
-        Mat imagem = matrizImagemSelecionada.clone();
-        
-        Mat gradienteX = new Mat();
-        Mat gradienteY = new Mat();
-        Mat imagemBordas = new Mat();
-
-        Imgproc.Sobel(imagem, gradienteX, CvType.CV_16S, 1, 0, 3, 1, 0, Core.BORDER_DEFAULT);
-        Imgproc.Sobel(imagem, gradienteY, CvType.CV_16S, 0, 1, 3, 1, 0, Core.BORDER_DEFAULT);
-
-        // Calcular a magnitude do gradiente
-        Core.convertScaleAbs(gradienteX, gradienteX);
-        Core.convertScaleAbs(gradienteY, gradienteY);
-        Core.addWeighted(gradienteX, 0.5, gradienteY, 0.5, 0, imagemBordas);
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_SOBEL, imagemBordas);
-    }
-    
-    private void espelhamento() {
-        Mat espelho = new Mat();
-        Core.flip(matrizImagemSelecionada, espelho, 1);
-        matrizImagemSelecionada = espelho.clone();
-        Imgcodecs.imwrite(DIRETORIO + File.separator + IMAGEM_ESPELHADA, espelho);
-    }
-
 }

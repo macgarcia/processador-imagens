@@ -1,8 +1,8 @@
 package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
-import br.com.github.macgarcia.util.FactoryMensagem;
-import br.com.github.macgarcia.util.GeradorHistograma;
+import br.com.github.macgarcia.processos.GeradorHistograma;
+import com.gituhub.macgarcia.core.FactoryMensagem;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;

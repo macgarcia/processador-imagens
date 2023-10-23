@@ -20,8 +20,7 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
         initComponents();
         service = new TelaEdicaoImagemService(this);
         List<JButton> botoes = Arrays.asList(btnProcurar, btnOriginal, btnTonsDeCinza, 
-                btnPassaAlta, btnBlur, btnSuavizar, btnErosao, btnSaturacao, btnSobel,
-                btnEspelhar);
+                btnPassaAlta, btnBlur, btnSuavizar, btnErosao, btnSaturacao, btnSobel);
         service.acaoDosBotoes(botoes, lblImagem);
     }
 
@@ -47,7 +46,6 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
         btnSaturacao = new javax.swing.JButton();
         btnOriginal = new javax.swing.JButton();
         btnSobel = new javax.swing.JButton();
-        btnEspelhar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -81,8 +79,6 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
 
         btnSobel.setText("Sobel");
 
-        btnEspelhar.setText("Espelhar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,24 +98,21 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnProcurar)
                         .addGap(153, 153, 153)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEspelhar)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnOriginal)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTonsDeCinza)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnPassaAlta)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBlur)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSuavizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnErosao)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSaturacao)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSobel)))))
+                        .addComponent(btnOriginal)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTonsDeCinza)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPassaAlta)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBlur)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSuavizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnErosao)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSaturacao)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSobel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,9 +133,7 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
                     .addComponent(btnSaturacao)
                     .addComponent(btnOriginal)
                     .addComponent(btnSobel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEspelhar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(lblImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,7 +147,6 @@ public class TelaEdicaoImagem extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBlur;
     private javax.swing.JButton btnErosao;
-    private javax.swing.JButton btnEspelhar;
     private javax.swing.JButton btnOriginal;
     private javax.swing.JButton btnPassaAlta;
     private javax.swing.JButton btnProcurar;

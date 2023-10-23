@@ -1,4 +1,4 @@
-package br.com.github.macgarcia.util;
+package br.com.github.macgarcia.processos;
 
 import org.opencv.core.Mat;
 

@@ -8,27 +8,46 @@ import org.opencv.core.Mat;
  */
 public final class GeradorHistograma {
 
-    public Long criarHistograma(final Mat mat) {
+    public static double[] criarHistogramaNormalizado(final Mat mat) {
+        int[] vetor = new int[256];
+        int totalDePixels = mat.rows() * mat.cols();
+
+        for (int i = 0; i < mat.rows(); i++) {
+            for (int j = 0; j < mat.cols(); j++) {
+                int count = (int) mat.get(i, j)[0];
+                vetor[count]++;
+            }
+        }
+
+        double[] histogramaNormalizado = new double[256];
+        for (int i = 0; i < vetor.length; i++) {
+            histogramaNormalizado[i] = (double) vetor[i] / totalDePixels;
+        }
         
+        return histogramaNormalizado;
+    }
+
+    public static Long criarHistograma(final Mat mat) {
+
         int[] vetor = new int[256];
         int count = 0;
         Integer histograma = 0;
-        
+
         for (int i = 0; i < mat.rows(); i++) {
             for (int j = 0; j < mat.cols(); j++) {
                 count = (int) mat.get(i, j)[0];
                 vetor[count]++;
             }
         }
-       
-        for(int i = 0; i < vetor.length; i++) {
+
+        for (int i = 0; i < vetor.length; i++) {
             histograma += vetor[i];
         }
-        
+
         return Long.valueOf(histograma.toString());
     }
 
-    public boolean compararHistogramas(Mat m1, Mat m2) {
+    public static boolean compararHistogramas(Mat m1, Mat m2) {
         int[] vet1 = new int[256];
         int[] vet2 = new int[256];
         int hist1, hist2, count = 0;
@@ -46,13 +65,13 @@ public final class GeradorHistograma {
                 vet2[hist2]++;
             }
         }
-        
+
         for (int c = 0; c < 256; c++) {
             if (vet1[c] == vet2[c]) {
                 count = count + 1;
             }
         }
-        
+
         return count == 256;
     }
 

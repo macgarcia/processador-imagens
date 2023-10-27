@@ -2,16 +2,11 @@ package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import br.com.github.macgarcia.processos.FiltroOpenCv;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-import org.apache.commons.io.FileUtils;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 

@@ -2,7 +2,7 @@ package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import br.com.github.macgarcia.processos.GeradorHistograma;
-import com.gituhub.macgarcia.core.FactoryMensagem;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.FactoryMensagem;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;

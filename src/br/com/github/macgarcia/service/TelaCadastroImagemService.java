@@ -4,7 +4,7 @@ import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import br.com.github.macgarcia.modelo.Imagem;
 import br.com.github.macgarcia.repository.ImagemRepository;
 import br.com.github.macgarcia.processos.GeradorHistograma;
-import com.gituhub.macgarcia.core.FactoryMensagem;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.FactoryMensagem;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

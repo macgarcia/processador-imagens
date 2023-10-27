@@ -3,7 +3,7 @@ package br.com.github.macgarcia.service;
 import br.com.github.macgarcia.componente.RegraSelecaoImagem;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.gituhub.macgarcia.core.FactoryMensagem;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.FactoryMensagem;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;

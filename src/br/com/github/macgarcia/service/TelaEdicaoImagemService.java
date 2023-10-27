@@ -12,28 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import org.apache.commons.io.FileUtils;
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 /**
  *
  * @author macgarcia
  */
 public class TelaEdicaoImagemService extends RegraSelecaoImagem {
-    
-    private final String DIRETORIO = "img";
-    private final String IMAGEM_TONS_DE_CINZA = "tonsDeCinza.png";
-    private final String IMAGEM_PASSA_ALTA = "passaAlta.png";
-    private final String IMAGEM_BLUR = "blur.png";
-    private final String IMAGEM_SUAVIZADA = "suavizada.png";
-    private final String IMAGEM_EROSAO = "erosao.png";
-    private final String IMAGEM_SATURADA = "saturada.png";
-    private final String IMAGEM_SOBEL = "sobel.png";
-    private final String IMAGEM_ESPELHADA = "espelhada.png";
     
     private String caminhoImnagemSelecionada;
     private Mat matrizImagemSelecionada;
@@ -43,21 +29,6 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
     public TelaEdicaoImagemService(final JInternalFrame frame) {
         frame.setTitle("Edição de imagem");
         frame.setResizable(false);
-        executarTarefaQuandoFecharATela(frame);
-    }
-    
-    /* Ação para apagar os arquivos quando fechar a janela de edição */
-    private void executarTarefaQuandoFecharATela(final JInternalFrame frame) {
-        frame.addInternalFrameListener(new InternalFrameAdapter(){
-            @Override
-            public void internalFrameClosed(InternalFrameEvent e) {
-                try {
-                    FileUtils.deleteDirectory(new File(DIRETORIO));
-                } catch (IOException ex) {
-                    ex.getMessage();
-                }
-            }
-        });
     }
     
     public void acaoDosBotoes(final List<JButton> botoes, final JLabel lblImagem) {
@@ -70,9 +41,8 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
         botoes.get(indice++).addActionListener(ae -> {
             caminhoImnagemSelecionada = abrirCaixaDeSelexao();
             if (Objects.nonNull(caminhoImnagemSelecionada) && !caminhoImnagemSelecionada.isEmpty()) {
-                criarDiretorioImg();
                 construirMatrizDaImagemSelecionada();
-                mostrarImagemNoObjeto(caminhoImnagemSelecionada, lblImagem);
+                montarMatrizImagemNoLabel(matrizImagemSelecionada, lblImagem);
                 ativarBotoes(botoes);
             } else {
                 cancelarBotoes(botoes);
@@ -83,49 +53,49 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
         // Original
         botoes.get(indice++).addActionListener(ae -> {
             construirMatrizDaImagemSelecionada();
-            mostrarImagemNoObjeto(caminhoImnagemSelecionada, lblImagem);
+            montarMatrizImagemNoLabel(matrizImagemSelecionada, lblImagem);
         });
         
         // Tons de cinza
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.tonsDeCinza();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_TONS_DE_CINZA, lblImagem);
+            Mat tonsDeCinza = filtro.tonsDeCinza();
+            montarMatrizImagemNoLabel(tonsDeCinza, lblImagem);
         });
         
         // Passa alta
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.passaAlta();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_PASSA_ALTA, lblImagem);
+            Mat passaAlta = filtro.passaAlta();
+            montarMatrizImagemNoLabel(passaAlta, lblImagem);
         });
         
         // Blur
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.blur();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_BLUR, lblImagem);
+            Mat blur = filtro.blur();
+            montarMatrizImagemNoLabel(blur, lblImagem);
         });
         
         // Suavizar
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.suavizar();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SUAVIZADA, lblImagem);
+            Mat suavizar = filtro.suavizar();
+            montarMatrizImagemNoLabel(suavizar, lblImagem);
         });
         
         // Erosao
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.erosao();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_EROSAO, lblImagem);
+            Mat erosao = filtro.erosao();
+            montarMatrizImagemNoLabel(erosao, lblImagem);
         });
         
         // Saturada
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.saturar();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SATURADA, lblImagem);
+            Mat saturar = filtro.saturar();
+            montarMatrizImagemNoLabel(saturar, lblImagem);
         });
         
         // Sobel
         botoes.get(indice++).addActionListener(ae -> {
-            filtro.sobel();
-            mostrarImagemNoObjeto(DIRETORIO + File.separator + IMAGEM_SOBEL, lblImagem);
+            Mat sobel = filtro.sobel();
+            montarMatrizImagemNoLabel(sobel, lblImagem);
         });
     }
     
@@ -148,12 +118,5 @@ public class TelaEdicaoImagemService extends RegraSelecaoImagem {
     private void construirMatrizDaImagemSelecionada() {
         matrizImagemSelecionada = Imgcodecs.imread(caminhoImnagemSelecionada);
         filtro = new FiltroOpenCv(matrizImagemSelecionada);
-    }
-    
-    private void criarDiretorioImg() {
-        File file = new File(DIRETORIO);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
     }
 }

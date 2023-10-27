@@ -5,9 +5,9 @@ import br.com.github.macgarcia.view.TelaCapturarImagem;
 import br.com.github.macgarcia.view.TelaComparacaoImagem;
 import br.com.github.macgarcia.view.TelaEdicaoImagem;
 import br.com.github.macgarcia.view.TelaListarImagem;
-import com.gituhub.macgarcia.core.Configuracao;
-import com.gituhub.macgarcia.core.FactoryMensagem;
-import com.gituhub.macgarcia.core.FactoryTela;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.Configuracao;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.FactoryMensagem;
+import com.gituhub.macgarcia.contrutor.tela.interna.core.FactoryTela;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -92,7 +92,6 @@ public class TelaInicialService {
             return;
         }
         FactoryTela.criarTela(TelaCapturarImagem.class, desktop);
-
     }
 
     private void abrirTelaComparacaoPorHistograma(final JDesktopPane desktop) {

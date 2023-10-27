@@ -2,7 +2,7 @@ package br.com.github.macgarcia.service;
 
 import br.com.github.macgarcia.componente.ModeloTabelaListarImagem;
 import br.com.github.macgarcia.modelo.Imagem;
-import br.com.github.macgarcia.qrcode.ProcessarQrCode;
+import br.com.github.macgarcia.qrcode.QrCodeCore;
 import com.google.gson.Gson;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -73,28 +73,16 @@ public class TelaListarImagemService {
     }
 
     private void criarQrCode(final Imagem imagem, final JLabel lblQrCode) {
-        try {
-
-            Map<String, Object> map = new HashMap();
-            map.put("id", imagem.getId().toString());
-            map.put("nomeFoto", imagem.getNomeFoto());
-            map.put("histograma", imagem.getHistograma().toString());
-            //map.put("imagemBinaria", imagem.getImg());
-
-            Gson gson = new Gson();
-            String imagemJson = gson.toJson(map);
-
-            ProcessarQrCode processar = new ProcessarQrCode();
-            processar.criarQrCode(imagemJson);
-
-            File file = new File(processar.NOME_QR_CODE);
-
-            byte[] imagemByte = Files.readAllBytes(file.toPath());
-            criarIconeParaOLabel(imagemByte, lblQrCode);
-        } catch (IOException ex) {
-
-        }
-
+        Map<String, Object> map = new HashMap();
+        map.put("id", imagem.getId().toString());
+        map.put("nomeFoto", imagem.getNomeFoto());
+        map.put("histograma", imagem.getHistograma().toString());
+        
+        Gson gson = new Gson();
+        String imagemJson = gson.toJson(map);
+        byte[] imagemByte = QrCodeCore.criarQrCode(imagemJson);
+        
+        criarIconeParaOLabel(imagemByte, lblQrCode);
     }
 
     private void criarIconeParaOLabel(final byte[] b, final JLabel lblSelecionado) {
@@ -115,7 +103,7 @@ public class TelaListarImagemService {
         tela.addInternalFrameListener(new InternalFrameAdapter() {
             @Override
             public void internalFrameClosed(InternalFrameEvent e) {
-                File file = new File(new ProcessarQrCode().NOME_QR_CODE);
+                File file = new File(QrCodeCore.NOME_QR_CODE);
                 if (file.exists()) {
                     file.delete();
                 }

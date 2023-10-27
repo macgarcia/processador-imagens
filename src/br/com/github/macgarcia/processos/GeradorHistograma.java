@@ -6,8 +6,7 @@ import org.opencv.core.Mat;
  *
  * @author macgarcia
  */
-public class GeradorHistograma {
-
+public final class GeradorHistograma {
 
     public Long criarHistograma(final Mat mat) {
         
